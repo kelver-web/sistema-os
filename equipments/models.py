@@ -10,7 +10,7 @@ class Equipment(models.Model):
         HOME_APPLIANCES = 'eletrodomesticos', 'Eletrodomésticos'
         OTHERS = 'outros', 'Outros'
     
-    client = models.ForeignKey('clients.Client', ondelete=models.CASCADE, related_name='equipment')
+    client = models.ForeignKey('clients.Client', on_delete=models.CASCADE, related_name='equipment')
     category = models.CharField(max_length=20, choices=Category.choices)
     brand = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
