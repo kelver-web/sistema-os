@@ -10,14 +10,14 @@ class Equipment(models.Model):
         HOME_APPLIANCES = 'eletrodomesticos', 'Eletrodomésticos'
         OTHERS = 'outros', 'Outros'
     
-    client = models.ForeignKey('clients.Client', on_delete=models.CASCADE, related_name='equipment')
-    category = models.CharField(max_length=20, choices=Category.choices)
-    brand = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-    serial_number = models.CharField(max_length=100, unique=True, blank=True)
-    accessories = models.TextField(blank=True)
-    condition = models.TextField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
+    client = models.ForeignKey('clients.Client', on_delete=models.CASCADE, related_name='equipment', verbose_name='Cliente')
+    category = models.CharField('Categoria', max_length=20, choices=Category.choices)
+    brand = models.CharField('Marca', max_length=100)
+    model = models.CharField('Modelo', max_length=100)
+    serial_number = models.CharField('Número de série', max_length=100, unique=True, blank=True)
+    accessories = models.TextField('Acessorios', blank=True)
+    condition = models.TextField('Condição', max_length=100)
+    created_at = models.DateTimeField('Criado em', auto_now_add=True)
     
     class Meta:
         ordering = ['-created_at']
