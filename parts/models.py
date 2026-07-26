@@ -14,6 +14,7 @@ class Part(models.Model):
     
     class Meta:
         ordering = ['name']
+        verbose_name_plural = 'Peças'
         
     def __str__(self):
         return self.name
@@ -42,6 +43,7 @@ class PartMovement(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+        verbose_name_plural = 'Movimentos de peças'
         
     def __str__(self):
         return f'{self.movement_type} - {self.part.name}'

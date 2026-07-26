@@ -52,6 +52,7 @@ class ServiceOrder(models.Model):
             models.Index(fields=['status']),
             models.Index(fields=['technician', 'status']),
         ]
+        verbose_name_plural = 'Ordens de Serviço'
     
     def __str__(self):
         return f'OS #{self.pk} - {self.client.name} ({self.get_status_display()})'
@@ -65,6 +66,9 @@ class ServiceOrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     total = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
+    
+    class Meta:
+        verbose_name_plural = 'Itens do serviço'
     
     def save(self, *args, **kwargs):
         self.total = self.quantity * self.unit_price

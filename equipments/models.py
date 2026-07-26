@@ -21,6 +21,7 @@ class Equipment(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+        verbose_name_plural = 'Equipamentos'
         
     def __str__(self):
         return f'{self.brand} {self.model} ({self.serial_number})'
