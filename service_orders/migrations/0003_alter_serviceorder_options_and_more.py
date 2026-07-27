@@ -4,18 +4,20 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('service_orders', '0002_serviceorderitem_servicetimeline'),
+        ("service_orders", "0002_serviceorderitem_servicetimeline"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='serviceorder',
-            options={'ordering': ['-priority', 'opened_at'], 'verbose_name_plural': 'Ordens de Serviço'},
+            name="serviceorder",
+            options={
+                "ordering": ["-priority", "opened_at"],
+                "verbose_name_plural": "Ordens de Serviço",
+            },
         ),
         migrations.AlterModelOptions(
-            name='serviceorderitem',
-            options={'verbose_name_plural': 'Itens do serviço'},
+            name="serviceorderitem",
+            options={"verbose_name_plural": "Itens do serviço"},
         ),
     ]

@@ -4,18 +4,20 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('parts', '0001_initial'),
+        ("parts", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='part',
-            options={'ordering': ['name'], 'verbose_name_plural': 'Peças'},
+            name="part",
+            options={"ordering": ["name"], "verbose_name_plural": "Peças"},
         ),
         migrations.AlterModelOptions(
-            name='partmovement',
-            options={'ordering': ['-created_at'], 'verbose_name_plural': 'Movimentos de peças'},
+            name="partmovement",
+            options={
+                "ordering": ["-created_at"],
+                "verbose_name_plural": "Movimentos de peças",
+            },
         ),
     ]

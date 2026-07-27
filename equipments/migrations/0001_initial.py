@@ -5,29 +5,59 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('clients', '0001_initial'),
+        ("clients", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Equipment',
+            name="Equipment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('category', models.CharField(choices=[('informatica', 'Informática'), ('eletronicos', 'Eletrônicos'), ('telefonia', 'Telefonia'), ('impressoras', 'Impressoras'), ('eletrodomesticos', 'Eletrodomésticos'), ('outros', 'Outros')], max_length=20)),
-                ('brand', models.CharField(max_length=100)),
-                ('model', models.CharField(max_length=100)),
-                ('serial_number', models.CharField(blank=True, max_length=100, unique=True)),
-                ('accessories', models.TextField(blank=True)),
-                ('condition', models.TextField(max_length=100)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('client', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='equipment', to='clients.client')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("informatica", "Informática"),
+                            ("eletronicos", "Eletrônicos"),
+                            ("telefonia", "Telefonia"),
+                            ("impressoras", "Impressoras"),
+                            ("eletrodomesticos", "Eletrodomésticos"),
+                            ("outros", "Outros"),
+                        ],
+                        max_length=20,
+                    ),
+                ),
+                ("brand", models.CharField(max_length=100)),
+                ("model", models.CharField(max_length=100)),
+                (
+                    "serial_number",
+                    models.CharField(blank=True, max_length=100, unique=True),
+                ),
+                ("accessories", models.TextField(blank=True)),
+                ("condition", models.TextField(max_length=100)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "client",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="equipment",
+                        to="clients.client",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created_at'],
+                "ordering": ["-created_at"],
             },
         ),
     ]

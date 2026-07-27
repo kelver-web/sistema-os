@@ -6,37 +6,77 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('service_orders', '0001_initial'),
+        ("service_orders", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ServiceOrderItem',
+            name="ServiceOrderItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(max_length=255)),
-                ('quantity', models.PositiveIntegerField(default=1)),
-                ('unit_price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('total', models.DecimalField(decimal_places=2, editable=False, max_digits=10)),
-                ('service_order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='service_orders.serviceorder')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("description", models.CharField(max_length=255)),
+                ("quantity", models.PositiveIntegerField(default=1)),
+                ("unit_price", models.DecimalField(decimal_places=2, max_digits=10)),
+                (
+                    "total",
+                    models.DecimalField(
+                        decimal_places=2, editable=False, max_digits=10
+                    ),
+                ),
+                (
+                    "service_order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="items",
+                        to="service_orders.serviceorder",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ServiceTimeLine',
+            name="ServiceTimeLine",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('action', models.CharField(max_length=100)),
-                ('description', models.TextField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('service_order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='timeline', to='service_orders.serviceorder')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("action", models.CharField(max_length=100)),
+                ("description", models.TextField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "service_order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="timeline",
+                        to="service_orders.serviceorder",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name_plural': 'Entradas do serviço',
-                'ordering': ['created_at'],
+                "verbose_name_plural": "Entradas do serviço",
+                "ordering": ["created_at"],
             },
         ),
     ]

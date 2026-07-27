@@ -6,48 +6,90 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('service_orders', '0002_serviceorderitem_servicetimeline'),
+        ("service_orders", "0002_serviceorderitem_servicetimeline"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Part',
+            name="Part",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('manufacturer', models.CharField(blank=True, max_length=200)),
-                ('model_number', models.CharField(blank=True, max_length=100)),
-                ('supplier', models.CharField(blank=True, max_length=200)),
-                ('supplier_price', models.FloatField()),
-                ('sale_price', models.FloatField()),
-                ('quantity', models.PositiveIntegerField()),
-                ('location', models.CharField(blank=True, max_length=100)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=200)),
+                ("manufacturer", models.CharField(blank=True, max_length=200)),
+                ("model_number", models.CharField(blank=True, max_length=100)),
+                ("supplier", models.CharField(blank=True, max_length=200)),
+                ("supplier_price", models.FloatField()),
+                ("sale_price", models.FloatField()),
+                ("quantity", models.PositiveIntegerField()),
+                ("location", models.CharField(blank=True, max_length=100)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='PartMovement',
+            name="PartMovement",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('movement_type', models.CharField(choices=[('in', 'Entrada'), ('used', 'Usado')], max_length=10)),
-                ('quantity', models.PositiveIntegerField()),
-                ('unit_price', models.FloatField()),
-                ('notes', models.TextField(blank=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
-                ('part', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='movements', to='parts.part')),
-                ('service_order', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='part_movements', to='service_orders.serviceorder')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "movement_type",
+                    models.CharField(
+                        choices=[("in", "Entrada"), ("used", "Usado")], max_length=10
+                    ),
+                ),
+                ("quantity", models.PositiveIntegerField()),
+                ("unit_price", models.FloatField()),
+                ("notes", models.TextField(blank=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "part",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="movements",
+                        to="parts.part",
+                    ),
+                ),
+                (
+                    "service_order",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="part_movements",
+                        to="service_orders.serviceorder",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created_at'],
+                "ordering": ["-created_at"],
             },
         ),
     ]
