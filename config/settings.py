@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "corsheaders",
     "django_filters",
+    "drf_spectacular",
+
 ]
 
 MIDDLEWARE = [
@@ -93,6 +95,10 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 AUTH_USER_MODEL = "accounts.User"
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
 
 
 REST_FRAMEWORK = {
