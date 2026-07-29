@@ -20,7 +20,8 @@ class Equipment(models.Model):
     brand = models.CharField("Marca", max_length=100)
     model = models.CharField("Modelo", max_length=100)
     serial_number = models.CharField(
-        "Número de série", max_length=100, unique=True, blank=True
+        "Número de série", max_length=100, unique=True, blank=True,
+        null=True
     )
     accessories = models.TextField("Acessorios", blank=True)
     condition = models.TextField("Condição", max_length=100)
@@ -32,3 +33,8 @@ class Equipment(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.model} ({self.serial_number})"
+    
+    def save(self, *args, **kwargs):
+        if not self.serial_number:
+            self.serial_number = None
+        super().save(*args, **kwargs)
