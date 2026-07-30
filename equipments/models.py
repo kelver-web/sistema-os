@@ -20,7 +20,7 @@ class Equipment(models.Model):
     brand = models.CharField("Marca", max_length=100)
     model = models.CharField("Modelo", max_length=100)
     serial_number = models.CharField(
-        "Número de série", max_length=100, unique=True, blank=True,
+        "Número de série", max_length=100, blank=True,
         null=True
     )
     accessories = models.TextField("Acessorios", blank=True)
@@ -30,6 +30,12 @@ class Equipment(models.Model):
     class Meta:
         ordering = ["-created_at"]
         verbose_name_plural = "Equipamentos"
+        constraints = [
+            models.UniqueConstraint(
+                fields=['client', 'serial_number'],
+                name='unique_serial_number_per_client'
+            )
+        ]
 
     def __str__(self):
         return f"{self.brand} {self.model} ({self.serial_number})"
