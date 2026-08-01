@@ -12,10 +12,13 @@ class User(AbstractUser):
             "tech",
             "Técnico",
         )
-        ATTENDANT = "attendant", "Atendente"
+        ATTENDANT = (
+            "attendant",
+            "Atendente",
+        )
 
     role = models.CharField(
-        "Função", max_length=20, choices=Role.choices, default=Role.TECH
+        "Função", max_length=20, choices=Role.choices, default=Role.TECH
     )
     phone = models.CharField("Telefone", max_length=11, null=True, blank=True)
     avatar = models.ImageField(upload_to="avatars/", null=True, blank=True)
