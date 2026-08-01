@@ -6,8 +6,8 @@ class Part(models.Model):
     manufacturer = models.CharField("Fabricante", max_length=200, blank=True)
     model_number = models.CharField("Número do modelo", max_length=100, blank=True)
     supplier = models.CharField("Fornecedor", max_length=200, blank=True)
-    supplier_price = models.FloatField("Preço do fornecedor")
-    sale_price = models.FloatField("Preço de venda")
+    supplier_price = models.DecimalField("Preço do fornecedor", max_digits=10, decimal_places=2)
+    sale_price = models.DecimalField("Preço de venda", max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField("Quantidade")
     location = models.CharField("Local", max_length=100, blank=True)
     created_at = models.DateTimeField("Criado em", auto_now_add=True)
@@ -40,7 +40,7 @@ class PartMovement(models.Model):
         "Tipo", max_length=10, choices=MovementType.choices
     )
     quantity = models.PositiveIntegerField("Quantidade")
-    unit_price = models.FloatField("Preço unitário")
+    unit_price = models.DecimalField("Preço unitário", max_digits=10, decimal_places=2)
     notes = models.TextField("Notas", blank=True)
     created_by = models.ForeignKey(
         "accounts.User", on_delete=models.PROTECT, verbose_name="Criado por"

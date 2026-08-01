@@ -10,7 +10,7 @@ class ServiceOrder(models.Model):
         URGENT = 4, "Urgente"
 
     class Status(models.TextChoices):
-        PANDING = "PENDING", "Pendente"
+        PENDING = "PENDING", "Pendente"
         AWAITING_PARTS = "AWAITING_PARTS", "Aguardando peças"
         IN_PROGRESS = "IN_PROGRESS", "Em andamento"
         AWAITING_APPROVAL = "AWAITING_APPROVAL", "Aguardando aprovação"
@@ -48,7 +48,7 @@ class ServiceOrder(models.Model):
     technical_fidings = models.TextField("Problema técnico", blank=True)
     solution_description = models.TextField("Solução", blank=True)
     status = models.CharField(
-        max_length=20, choices=Status.choices, default=Status.PANDING
+        max_length=20, choices=Status.choices, default=Status.PENDING
     )
     priority = models.IntegerField(
         "Prioridade", choices=Priority.choices, default=Priority.MEDIUM

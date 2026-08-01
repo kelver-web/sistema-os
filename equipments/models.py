@@ -12,7 +12,7 @@ class Equipment(models.Model):
 
     client = models.ForeignKey(
         "clients.Client",
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="equipment",
         verbose_name="Cliente",
     )
