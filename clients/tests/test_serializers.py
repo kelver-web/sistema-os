@@ -36,7 +36,7 @@ class TestClientSerializer:
         )
         payload = {
             'name': 'Novo Cliente',
-            'email': 'novo@test.com',
+            'email': 'cliente@teste.com',
             'phone': '0987654321',
             'created_by': outro_user.id,  # Tentativa de sobrescrever created_by
         }
