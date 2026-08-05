@@ -4,15 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0002_alter_user_options_alter_user_notification_prefs_and_more'),
+        ("accounts", "0002_alter_user_options_alter_user_notification_prefs_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='role',
-            field=models.CharField(choices=[('admin', 'Administrador'), ('tech', 'Técnico'), ('attendant', 'Atendente')], default='tech', max_length=20, verbose_name='Função'),
+            model_name="user",
+            name="role",
+            field=models.CharField(
+                choices=[
+                    ("admin", "Administrador"),
+                    ("tech", "Técnico"),
+                    ("attendant", "Atendente"),
+                ],
+                default="tech",
+                max_length=20,
+                verbose_name="Função",
+            ),
         ),
     ]

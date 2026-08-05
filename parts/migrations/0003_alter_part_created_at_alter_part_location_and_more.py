@@ -6,97 +6,122 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('parts', '0002_alter_part_options_alter_partmovement_options'),
-        ('service_orders', '0004_alter_serviceorder_client_and_more'),
+        ("parts", "0002_alter_part_options_alter_partmovement_options"),
+        ("service_orders", "0004_alter_serviceorder_client_and_more"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='part',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='Criado em'),
+            model_name="part",
+            name="created_at",
+            field=models.DateTimeField(auto_now_add=True, verbose_name="Criado em"),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='location',
-            field=models.CharField(blank=True, max_length=100, verbose_name='Local'),
+            model_name="part",
+            name="location",
+            field=models.CharField(blank=True, max_length=100, verbose_name="Local"),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='manufacturer',
-            field=models.CharField(blank=True, max_length=200, verbose_name='Fabricante'),
+            model_name="part",
+            name="manufacturer",
+            field=models.CharField(
+                blank=True, max_length=200, verbose_name="Fabricante"
+            ),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='model_number',
-            field=models.CharField(blank=True, max_length=100, verbose_name='Número do modelo'),
+            model_name="part",
+            name="model_number",
+            field=models.CharField(
+                blank=True, max_length=100, verbose_name="Número do modelo"
+            ),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='name',
-            field=models.CharField(max_length=200, verbose_name='Nome'),
+            model_name="part",
+            name="name",
+            field=models.CharField(max_length=200, verbose_name="Nome"),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='quantity',
-            field=models.PositiveIntegerField(verbose_name='Quantidade'),
+            model_name="part",
+            name="quantity",
+            field=models.PositiveIntegerField(verbose_name="Quantidade"),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='sale_price',
-            field=models.FloatField(verbose_name='Preço de venda'),
+            model_name="part",
+            name="sale_price",
+            field=models.FloatField(verbose_name="Preço de venda"),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='supplier',
-            field=models.CharField(blank=True, max_length=200, verbose_name='Fornecedor'),
+            model_name="part",
+            name="supplier",
+            field=models.CharField(
+                blank=True, max_length=200, verbose_name="Fornecedor"
+            ),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='supplier_price',
-            field=models.FloatField(verbose_name='Preço do fornecedor'),
+            model_name="part",
+            name="supplier_price",
+            field=models.FloatField(verbose_name="Preço do fornecedor"),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='Criado em'),
+            model_name="partmovement",
+            name="created_at",
+            field=models.DateTimeField(auto_now_add=True, verbose_name="Criado em"),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='created_by',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='Criado por'),
+            model_name="partmovement",
+            name="created_by",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Criado por",
+            ),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='movement_type',
-            field=models.CharField(choices=[('in', 'Entrada'), ('used', 'Usado')], max_length=10, verbose_name='Tipo'),
+            model_name="partmovement",
+            name="movement_type",
+            field=models.CharField(
+                choices=[("in", "Entrada"), ("used", "Usado")],
+                max_length=10,
+                verbose_name="Tipo",
+            ),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='notes',
-            field=models.TextField(blank=True, verbose_name='Notas'),
+            model_name="partmovement",
+            name="notes",
+            field=models.TextField(blank=True, verbose_name="Notas"),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='part',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='movements', to='parts.part', verbose_name='Peça'),
+            model_name="partmovement",
+            name="part",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="movements",
+                to="parts.part",
+                verbose_name="Peça",
+            ),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='quantity',
-            field=models.PositiveIntegerField(verbose_name='Quantidade'),
+            model_name="partmovement",
+            name="quantity",
+            field=models.PositiveIntegerField(verbose_name="Quantidade"),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='service_order',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='part_movements', to='service_orders.serviceorder', verbose_name='Ordem de serviço'),
+            model_name="partmovement",
+            name="service_order",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="part_movements",
+                to="service_orders.serviceorder",
+                verbose_name="Ordem de serviço",
+            ),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='unit_price',
-            field=models.FloatField(verbose_name='Preço unitário'),
+            model_name="partmovement",
+            name="unit_price",
+            field=models.FloatField(verbose_name="Preço unitário"),
         ),
     ]

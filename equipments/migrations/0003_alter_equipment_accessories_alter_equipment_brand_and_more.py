@@ -5,51 +5,72 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clients', '0003_alter_client_address_alter_client_created_at_and_more'),
-        ('equipments', '0002_alter_equipment_options'),
+        ("clients", "0003_alter_client_address_alter_client_created_at_and_more"),
+        ("equipments", "0002_alter_equipment_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='equipment',
-            name='accessories',
-            field=models.TextField(blank=True, verbose_name='Acessorios'),
+            model_name="equipment",
+            name="accessories",
+            field=models.TextField(blank=True, verbose_name="Acessorios"),
         ),
         migrations.AlterField(
-            model_name='equipment',
-            name='brand',
-            field=models.CharField(max_length=100, verbose_name='Marca'),
+            model_name="equipment",
+            name="brand",
+            field=models.CharField(max_length=100, verbose_name="Marca"),
         ),
         migrations.AlterField(
-            model_name='equipment',
-            name='category',
-            field=models.CharField(choices=[('informatica', 'Informática'), ('eletronicos', 'Eletrônicos'), ('telefonia', 'Telefonia'), ('impressoras', 'Impressoras'), ('eletrodomesticos', 'Eletrodomésticos'), ('outros', 'Outros')], max_length=20, verbose_name='Categoria'),
+            model_name="equipment",
+            name="category",
+            field=models.CharField(
+                choices=[
+                    ("informatica", "Informática"),
+                    ("eletronicos", "Eletrônicos"),
+                    ("telefonia", "Telefonia"),
+                    ("impressoras", "Impressoras"),
+                    ("eletrodomesticos", "Eletrodomésticos"),
+                    ("outros", "Outros"),
+                ],
+                max_length=20,
+                verbose_name="Categoria",
+            ),
         ),
         migrations.AlterField(
-            model_name='equipment',
-            name='client',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='equipment', to='clients.client', verbose_name='Cliente'),
+            model_name="equipment",
+            name="client",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="equipment",
+                to="clients.client",
+                verbose_name="Cliente",
+            ),
         ),
         migrations.AlterField(
-            model_name='equipment',
-            name='condition',
-            field=models.TextField(max_length=100, verbose_name='Condição'),
+            model_name="equipment",
+            name="condition",
+            field=models.TextField(max_length=100, verbose_name="Condição"),
         ),
         migrations.AlterField(
-            model_name='equipment',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='Criado em'),
+            model_name="equipment",
+            name="created_at",
+            field=models.DateTimeField(auto_now_add=True, verbose_name="Criado em"),
         ),
         migrations.AlterField(
-            model_name='equipment',
-            name='model',
-            field=models.CharField(max_length=100, verbose_name='Modelo'),
+            model_name="equipment",
+            name="model",
+            field=models.CharField(max_length=100, verbose_name="Modelo"),
         ),
         migrations.AlterField(
-            model_name='equipment',
-            name='serial_number',
-            field=models.CharField(blank=True, max_length=100, null=True, unique=True, verbose_name='Número de série'),
+            model_name="equipment",
+            name="serial_number",
+            field=models.CharField(
+                blank=True,
+                max_length=100,
+                null=True,
+                unique=True,
+                verbose_name="Número de série",
+            ),
         ),
     ]

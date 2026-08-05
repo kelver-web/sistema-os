@@ -4,25 +4,30 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('parts', '0003_alter_part_created_at_alter_part_location_and_more'),
+        ("parts", "0003_alter_part_created_at_alter_part_location_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='part',
-            name='sale_price',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Preço de venda'),
+            model_name="part",
+            name="sale_price",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Preço de venda"
+            ),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='supplier_price',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Preço do fornecedor'),
+            model_name="part",
+            name="supplier_price",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Preço do fornecedor"
+            ),
         ),
         migrations.AlterField(
-            model_name='partmovement',
-            name='unit_price',
-            field=models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Preço unitário'),
+            model_name="partmovement",
+            name="unit_price",
+            field=models.DecimalField(
+                decimal_places=2, max_digits=10, verbose_name="Preço unitário"
+            ),
         ),
     ]

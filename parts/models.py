@@ -6,7 +6,9 @@ class Part(models.Model):
     manufacturer = models.CharField("Fabricante", max_length=200, blank=True)
     model_number = models.CharField("Número do modelo", max_length=100, blank=True)
     supplier = models.CharField("Fornecedor", max_length=200, blank=True)
-    supplier_price = models.DecimalField("Preço do fornecedor", max_digits=10, decimal_places=2)
+    supplier_price = models.DecimalField(
+        "Preço do fornecedor", max_digits=10, decimal_places=2
+    )
     sale_price = models.DecimalField("Preço de venda", max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField("Quantidade")
     location = models.CharField("Local", max_length=100, blank=True)

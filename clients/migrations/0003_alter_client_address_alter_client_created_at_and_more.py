@@ -6,56 +6,60 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('clients', '0002_alter_client_options'),
+        ("clients", "0002_alter_client_options"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='client',
-            name='address',
-            field=models.TextField(blank=True, verbose_name='Endereço'),
+            model_name="client",
+            name="address",
+            field=models.TextField(blank=True, verbose_name="Endereço"),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='Criado em'),
+            model_name="client",
+            name="created_at",
+            field=models.DateTimeField(auto_now_add=True, verbose_name="Criado em"),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='created_by',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='clients', to=settings.AUTH_USER_MODEL, verbose_name='Criado por'),
+            model_name="client",
+            name="created_by",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="clients",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Criado por",
+            ),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='document',
-            field=models.CharField(blank=True, max_length=20, verbose_name='Documento'),
+            model_name="client",
+            name="document",
+            field=models.CharField(blank=True, max_length=20, verbose_name="Documento"),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='email',
-            field=models.EmailField(max_length=254, unique=True, verbose_name='E-mail'),
+            model_name="client",
+            name="email",
+            field=models.EmailField(max_length=254, unique=True, verbose_name="E-mail"),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='name',
-            field=models.CharField(max_length=255, verbose_name='Nome'),
+            model_name="client",
+            name="name",
+            field=models.CharField(max_length=255, verbose_name="Nome"),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='notes',
-            field=models.TextField(blank=True, verbose_name='Notas'),
+            model_name="client",
+            name="notes",
+            field=models.TextField(blank=True, verbose_name="Notas"),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='phone',
-            field=models.CharField(max_length=20, verbose_name='Telefone'),
+            model_name="client",
+            name="phone",
+            field=models.CharField(max_length=20, verbose_name="Telefone"),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='updated_at',
-            field=models.DateTimeField(auto_now=True, verbose_name='Atualizado em'),
+            model_name="client",
+            name="updated_at",
+            field=models.DateTimeField(auto_now=True, verbose_name="Atualizado em"),
         ),
     ]
