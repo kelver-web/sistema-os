@@ -671,6 +671,7 @@ dependencies = [
     { name = "pytest-django" },
     { name = "python-decouple" },
     { name = "ruff" },
+    { name = "validate-docbr" },
 ]
 
 [package.metadata]
@@ -689,6 +690,7 @@ requires-dist = [
     { name = "pytest-django", specifier = ">=4.12.0" },
     { name = "python-decouple", specifier = ">=3.8" },
     { name = "ruff", specifier = ">=0.15.22" },
+    { name = "validate-docbr", specifier = ">=2.0.0" },
 ]
 
 [[package]]
@@ -739,6 +741,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/98/60/f174043244c5306c9988380d2cb10009f91563fc4b31293d27e17201af56/uritemplate-4.2.0.tar.gz", hash = "sha256:480c2ed180878955863323eea31b0ede668795de182617fef9c6ca09e6ec9d0e", size = 33267, upload-time = "2025-06-02T15:12:06.318Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a9/99/3ae339466c9183ea5b8ae87b34c0b897eda475d2aec2307cae60e5cd4f29/uritemplate-4.2.0-py3-none-any.whl", hash = "sha256:962201ba1c4edcab02e60f9a0d3821e82dfc5d2d6662a21abd533879bdb8a686", size = 11488, upload-time = "2025-06-02T15:12:03.405Z" },
+]
+
+[[package]]
+name = "validate-docbr"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7f/43/822521a1c0c826d0a5224fede4ab3f5885b0485f94ac20af1b46c384be52/validate_docbr-2.0.0.tar.gz", hash = "sha256:c7693783718c7c3d90bdb759a6b41eca647fb297d74a50e0bcdc6244690a8545", size = 46249, upload-time = "2026-04-04T17:53:38.124Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/98/45/e6a064f1ac0c9eab72943573554c5c4e0380587a5a907f25a3242114b782/validate_docbr-2.0.0-py3-none-any.whl", hash = "sha256:08b4a7c49ea1018179151dad94b7192425925b0b23fed0045f3261831a4ae43c", size = 16811, upload-time = "2026-04-04T17:53:36.546Z" },
 ]
 
 [[package]]
