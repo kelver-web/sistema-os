@@ -7,7 +7,7 @@ from clients.validators import validate_document
 
 
 class ClientSerializer(serializers.ModelSerializer):
-    document = serializers.CharField(
+    document = serializers.CharField( # CNPJ ou CPF
         required=False, allow_blank=True, validators=[validate_document]
     )
     email = serializers.EmailField(
