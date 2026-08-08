@@ -36,6 +36,7 @@ class TestEquipmentSerializer:
         assert data['serial_number'] == "123456789"
         assert data['condition'] == "Bom"
         assert data['client'] == self.client_obj.id
+        assert data['client_detail']['name'] == self.client_obj.name
         
     def test_client_gravavel_e_obrigatorio(self):
         """Diferente de created_by no Client, aqui client DEVE vir do payload."""
@@ -72,3 +73,22 @@ class TestEquipmentSerializer:
         serializer = EquipmentSerializer(data=payload)
         assert not serializer.is_valid()
         assert "non_field_errors" in serializer.errors or "serial_number" in serializer.errors
+        
+    def test_client_detail_e_somente_leitura(self):
+        """client_detail não deve ser aceito nem afetar a criação via payload."""
+        outro_client = Client.objects.create(
+            name="Outro", email="outro@x.com", phone="2", created_by=self.user
+        )
+        payload = {
+            "client": self.client_obj.id,
+            "client_detail": {"id": outro_client.id, "name": "Tentativa forjada"},
+            "category": "informatica",
+            "serial_number": "123456789",
+            "brand": "HP",
+            "model": "Pavilion",
+            "condition": "Novo",
+        }
+        serializer = EquipmentSerializer(data=payload)
+        assert serializer.is_valid(), serializer.errors
+        assert "client_detail" not in serializer.validated_data
+        assert serializer.validated_data["client"] == self.client_obj
