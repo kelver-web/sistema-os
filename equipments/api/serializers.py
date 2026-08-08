@@ -3,12 +3,20 @@ from rest_framework.validators import UniqueTogetherValidator
 from equipments.models import Equipment
 
 
+class ClientMinimalSerializer(serializers.Serializer):
+    """Representação exuta do cliente, só para exibição aninhada de equipamentos."""
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+
 class EquipmentSerializer(serializers.ModelSerializer):
+    client_detail = ClientMinimalSerializer(source="client", read_only=True)
+    
     class Meta:
         model = Equipment
         fields = [
             "id",
             "client",
+            "client_detail",
             "category",
             "brand",
             "model",
