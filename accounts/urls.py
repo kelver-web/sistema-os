@@ -3,8 +3,14 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+from rest_framework.routers import DefaultRouter
 from django.urls import path
 from accounts.views import MeView, RegisterView
+from accounts.api.viewsets import UserViewSet
+
+router = DefaultRouter()
+
+router.register("users", UserViewSet, basename="users")
 
 
 urlpatterns = [
@@ -13,4 +19,4 @@ urlpatterns = [
     path("auth/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("auth/me/", MeView.as_view(), name="me"),
     path("auth/register/", RegisterView.as_view(), name="register"),
-]
+] + router.urls

@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework import permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -7,6 +8,7 @@ from clients.api.serializers import ClientSerializer
 from clients.models import Client
 
 from equipments.api.serializers import EquipmentSerializer
+from accounts.permissions import IsAdmin
 
 
 class ClientViewSet(viewsets.ModelViewSet):
@@ -29,3 +31,9 @@ class ClientViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
         
         return Response(serializer.data)
+    
+    def get_permissions(self):
+        if self.action == 'destroy':
+            return [IsAdmin()]
+        
+        return [permissions.IsAuthenticated()]
