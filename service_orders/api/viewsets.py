@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.urls import timezone
+from django.utils import timezone
 from accounts.permissions import IsAdmin, IstTechOrAdmin
 from service_orders.models import ServiceOrder
 from service_orders.api.serializers import ServiceOrderSerializer
@@ -10,12 +10,13 @@ from service_orders.api.serializers import ServiceOrderSerializer
 class ServiceOrderViewSet(viewsets.ModelViewSet):
     queryset = ServiceOrder.objects.all()
     serializer_class = ServiceOrderSerializer
+    permission_classes = [permissions.IsAuthenticated]
     
     def get_permissions(self):
         if self.action == 'destroy':
             return [IsAdmin()]
 
-        return [permissions.IsAuthenticated()] # abrir OS: qualquer papel
+        return [permission() for permission in self.permission_classes] # abrir OS: qualquer papel
     
     def perform_create(self, serializer):
         serializer.save(opened_by=self.request.user)

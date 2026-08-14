@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from accounts.models import User
-from serializers import UserSerializer
+from accounts.api.serializers import UserSerializer
 from accounts.permissions import IsAdmin
 
 
