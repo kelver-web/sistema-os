@@ -10,6 +10,9 @@ class ClientMinimalSerializer(serializers.Serializer):
 
 class EquipmentSerializer(serializers.ModelSerializer):
     client_detail = ClientMinimalSerializer(source="client", read_only=True)
+    serial_number = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True, default=None
+    )
     
     class Meta:
         model = Equipment
