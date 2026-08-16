@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from parts.models import Part
 from parts.api.serializers import PartSerializer
-from accounts.permissions import IsAdmin, IstTechOrAdmin
+from accounts.permissions import IsAdmin, IsTechOrAdmin
 
 
 class PartViewSet(viewsets.ModelViewSet):
@@ -12,4 +12,4 @@ class PartViewSet(viewsets.ModelViewSet):
         if self.action == "destroy":
             return [IsAdmin()]
 
-        return [IstTechOrAdmin()]
+        return [IsTechOrAdmin()]

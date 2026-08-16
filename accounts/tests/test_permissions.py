@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import Mock
 from django.contrib.auth import get_user_model
 
-from accounts.permissions import IsAdmin, IstTechOrAdmin
+from accounts.permissions import IsAdmin, IsTechOrAdmin
 
 
 User = get_user_model()
@@ -72,16 +72,16 @@ class TestIsAdmin:
 @pytest.mark.django_db
 class TestIsTechOrAdmin:
     def test_admin_tem_permissao(self, admin_user):
-        permission = IstTechOrAdmin()
+        permission = IsTechOrAdmin()
 
         assert permission.has_permission(make_request(admin_user), None) is True
 
     def test_tech_tem_permissao(self, tech_user):
-        permission = IstTechOrAdmin()
+        permission = IsTechOrAdmin()
 
         assert permission.has_permission(make_request(tech_user), None) is True
 
     def test_attendant_nao_tem_permissao(self, attendant_user):
-        permission = IstTechOrAdmin()
+        permission = IsTechOrAdmin()
 
         assert permission.has_permission(make_request(attendant_user), None) is False

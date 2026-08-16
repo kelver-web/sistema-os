@@ -10,8 +10,15 @@ User = get_user_model()
 @pytest.mark.django_db
 def test_fluxo_completo_client_equipment():
     user = User.objects.create_user(username="joao", password="senha123")
+    admin = User.objects.create_user(
+        username="admin_fluxo", password="senha123", role=User.Role.ADMIN, is_staff=True
+    )
+
     api = APIClient()
     api.force_authenticate(user=user)
+
+    admin_api = APIClient()
+    admin_api.force_authenticate(user=admin)
 
     # 1. Cria client
     resp = api.post(
@@ -60,16 +67,16 @@ def test_fluxo_completo_client_equipment():
     )
     assert resp.status_code == status.HTTP_200_OK
 
-    # 5. Deleta equipment
-    resp = api.delete(f"/api/equipments/{equipment_id}/")
+    # 5. Deleta equipment — exige admin (regra de acesso da Semana 3)
+    resp = admin_api.delete(f"/api/equipments/{equipment_id}/")
     assert resp.status_code == status.HTTP_204_NO_CONTENT
 
     # 6. Confirma lista vazia
     resp = api.get(f"/api/clients/{client_id}/equipments/")
     assert resp.data["count"] == 0
 
-    # 7. Deleta client (só funciona pq não há mais equipment vinculado — PROTECT)
-    resp = api.delete(f"/api/clients/{client_id}/")
+    # 7. Deleta client — também exige admin
+    resp = admin_api.delete(f"/api/clients/{client_id}/")
     assert resp.status_code == status.HTTP_204_NO_CONTENT
 
     # 8. Confirma client deletado

@@ -39,22 +39,16 @@ class TestClientViewset:
             "name": "Test Client",
             "email": "client@teste.com",
             "phone": "1234567890",
-            "created_by": outro_user.id,  # Tentativa de forjar o created_by
+            "created_by": outro_user.id,
         }
         response = api_client.post("/api/clients/", payload)
 
         assert response.status_code == status.HTTP_201_CREATED
-        assert (
-            response.data["created_by"] == user.id
-        )  # Não é o outru usuário, mas sim o usuário autenticado
+        assert response.data["created_by"] == user.id
 
     def test_get_lista_clients(self, api_client, user):
-        Client.objects.create(
-            name="A", email="a@x", phone="84996969658", created_by=user
-        )
-        Client.objects.create(
-            name="C", email="c@x", phone="84996969659", created_by=user
-        )
+        Client.objects.create(name="A", email="a@x", phone="84996969658", created_by=user)
+        Client.objects.create(name="C", email="c@x", phone="84996969659", created_by=user)
 
         response = api_client.get("/api/clients/")
 
@@ -62,17 +56,23 @@ class TestClientViewset:
         assert response.data["count"] == 2
         assert len(response.data["results"]) == 2
 
-    def test_delete_remove_client(self, api_client, user):
+    def test_delete_remove_client(self, user):
+        admin = User.objects.create_user(
+            username="admin_del", password="testpass", role=User.Role.ADMIN, is_staff=True
+        )
+        admin_client = APIClient()
+        admin_client.force_authenticate(user=admin)
+
         client = Client.objects.create(
             name="ToDelete", email="a@x.com", phone="84996969658", created_by=user
         )
-        response = api_client.delete(f"/api/clients/{client.id}/")
+        response = admin_client.delete(f"/api/clients/{client.id}/")
 
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert not Client.objects.filter(id=client.id).exists()
 
     def test_requisicao_sem_autenticacao_e_bloqueada(self):
-        client = APIClient()  # Cliente sem autenticação
+        client = APIClient()
         response = client.get("/api/clients/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
