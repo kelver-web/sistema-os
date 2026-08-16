@@ -11,4 +11,4 @@ class ServiceOrderSerializer(serializers.ModelSerializer):
             'status', 'priority', 'estimated_cost', 'final_cost',
             'opened_at', 'started_at', 'completed_at', 'delivered_at', 'deadline',
         ]
-        read_only_fields = ['opened_by', 'status', 'started_at', 'completed_at', 'opened_at']
+        read_only_fields = ['opened_by', 'status', 'technician', 'started_at', 'completed_at', 'opened_at']
