@@ -13,7 +13,7 @@ class EquipmentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_permissions(self):
-        if self.action == 'destroy':
+        if self.action == "destroy":
             return [IsAdmin()]
 
         return [permissions.IsAuthenticated()]

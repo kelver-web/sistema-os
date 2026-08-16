@@ -14,19 +14,30 @@ def test_fluxo_completo_client_equipment():
     api.force_authenticate(user=user)
 
     # 1. Cria client
-    resp = api.post("/api/clients/", {
-        "name": "Fluxo Teste", "email": "fluxo@teste.com",
-        "phone": "84999998888", "document": "111.444.777-35",
-    })
+    resp = api.post(
+        "/api/clients/",
+        {
+            "name": "Fluxo Teste",
+            "email": "fluxo@teste.com",
+            "phone": "84999998888",
+            "document": "111.444.777-35",
+        },
+    )
     assert resp.status_code == status.HTTP_201_CREATED
     client_id = resp.data["id"]
 
     # 2. Cria equipment desse client
-    resp = api.post("/api/equipments/", {
-        "client": client_id, "category": "informatica",
-        "brand": "Dell", "model": "Inspiron 15",
-        "serial_number": "FLX001", "condition": "Bom estado",
-    })
+    resp = api.post(
+        "/api/equipments/",
+        {
+            "client": client_id,
+            "category": "informatica",
+            "brand": "Dell",
+            "model": "Inspiron 15",
+            "serial_number": "FLX001",
+            "condition": "Bom estado",
+        },
+    )
     assert resp.status_code == status.HTTP_201_CREATED
     equipment_id = resp.data["id"]
 
@@ -36,11 +47,17 @@ def test_fluxo_completo_client_equipment():
     assert resp.data["count"] == 1
 
     # 4. Edita equipment
-    resp = api.put(f"/api/equipments/{equipment_id}/", {
-        "client": client_id, "category": "informatica",
-        "brand": "Dell", "model": "Inspiron 15 (revisado)",
-        "serial_number": "FLX001", "condition": "Revisado",
-    })
+    resp = api.put(
+        f"/api/equipments/{equipment_id}/",
+        {
+            "client": client_id,
+            "category": "informatica",
+            "brand": "Dell",
+            "model": "Inspiron 15 (revisado)",
+            "serial_number": "FLX001",
+            "condition": "Revisado",
+        },
+    )
     assert resp.status_code == status.HTTP_200_OK
 
     # 5. Deleta equipment
@@ -58,9 +75,7 @@ def test_fluxo_completo_client_equipment():
     # 8. Confirma client deletado
     resp = api.get(f"/api/clients/{client_id}/")
     assert resp.status_code == status.HTTP_404_NOT_FOUND
-    
+
     # 9. Confirma equipment deletado
     resp = api.get(f"/api/equipments/{equipment_id}/")
     assert resp.status_code == status.HTTP_404_NOT_FOUND
-    
-    

@@ -2,7 +2,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.utils import timezone
-from accounts.permissions import IsAdmin, IstTechOrAdmin
+from accounts.permissions import IsAdmin, IsTechOrAdmin
 from service_orders.models import ServiceOrder
 from service_orders.api.serializers import ServiceOrderSerializer
 
@@ -11,27 +11,29 @@ class ServiceOrderViewSet(viewsets.ModelViewSet):
     queryset = ServiceOrder.objects.all()
     serializer_class = ServiceOrderSerializer
     permission_classes = [permissions.IsAuthenticated]
-    
+
     def get_permissions(self):
-        if self.action == 'destroy':
+        if self.action == "destroy":
             return [IsAdmin()]
 
-        return [permission() for permission in self.permission_classes] # abrir OS: qualquer papel
-    
+        return [
+            permission() for permission in self.permission_classes
+        ]  # abrir OS: qualquer papel
+
     def perform_create(self, serializer):
         serializer.save(opened_by=self.request.user)
-        
-        
-    @action(detail=True, methods=['post'], permission_classes=[IstTechOrAdmin])
+
+    @action(detail=True, methods=["post"], permission_classes=[IsTechOrAdmin])
     def assumir(self, request, pk=None):
+        # Assumir OS, pode ser feito por tecnico ou admin, mas nao por outro
         service_order = self.get_object()
         service_order.technician = request.user
         service_order.status = ServiceOrder.Status.IN_PROGRESS
         service_order.started_at = timezone.now()
         service_order.save()
         return Response(self.get_serializer(service_order).data)
-    
-    @action(detail=True, methods=['post'], permission_classes=[IstTechOrAdmin])
+
+    @action(detail=True, methods=["post"], permission_classes=[IsTechOrAdmin])
     def concluir(self, request, pk=None):
         service_order = self.get_object()
         service_order.status = ServiceOrder.Status.COMPLETED

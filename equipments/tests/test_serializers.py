@@ -18,7 +18,7 @@ class TestEquipmentSerializer:
             phone="1234567890",
             created_by=self.user,
         )
-        
+
     def test_serializa_equipment_sem_erro(self):
         equipment = Equipment.objects.create(
             client=self.client_obj,
@@ -30,14 +30,14 @@ class TestEquipmentSerializer:
         )
         serializer = EquipmentSerializer(equipment)
         data = serializer.data
-        
-        assert data['brand'] == "Dell"
-        assert data['model'] == "XPS 13"
-        assert data['serial_number'] == "123456789"
-        assert data['condition'] == "Bom"
-        assert data['client'] == self.client_obj.id
-        assert data['client_detail']['name'] == self.client_obj.name
-        
+
+        assert data["brand"] == "Dell"
+        assert data["model"] == "XPS 13"
+        assert data["serial_number"] == "123456789"
+        assert data["condition"] == "Bom"
+        assert data["client"] == self.client_obj.id
+        assert data["client_detail"]["name"] == self.client_obj.name
+
     def test_client_gravavel_e_obrigatorio(self):
         """Diferente de created_by no Client, aqui client DEVE vir do payload."""
         payload = {
@@ -50,8 +50,8 @@ class TestEquipmentSerializer:
         }
         serializer = EquipmentSerializer(data=payload)
         assert serializer.is_valid(), serializer.errors
-        assert serializer.validated_data['client'] == self.client_obj
-        
+        assert serializer.validated_data["client"] == self.client_obj
+
     def test_serial_number_unico_por_cliente(self):
         Equipment.objects.create(
             client=self.client_obj,
@@ -61,7 +61,7 @@ class TestEquipmentSerializer:
             serial_number="123456789",
             condition="Bom",
         )
-        
+
         payload = {
             "client": self.client_obj.id,
             "category": "informatica",
@@ -72,8 +72,11 @@ class TestEquipmentSerializer:
         }
         serializer = EquipmentSerializer(data=payload)
         assert not serializer.is_valid()
-        assert "non_field_errors" in serializer.errors or "serial_number" in serializer.errors
-        
+        assert (
+            "non_field_errors" in serializer.errors
+            or "serial_number" in serializer.errors
+        )
+
     def test_client_detail_e_somente_leitura(self):
         """client_detail não deve ser aceito nem afetar a criação via payload."""
         outro_client = Client.objects.create(

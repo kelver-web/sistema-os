@@ -13,12 +13,16 @@ User = get_user_model()
 def user(db):
     return User.objects.create_user(username="joao", password="senha123")
 
+
 @pytest.fixture
 def client_obj(user):
     return Client.objects.create(
-        name="Cliente Teste", email="teste@exemplo.com",
-        phone="84999999999", created_by=user,
+        name="Cliente Teste",
+        email="teste@exemplo.com",
+        phone="84999999999",
+        created_by=user,
     )
+
 
 @pytest.fixture
 def api_client(user):
@@ -42,7 +46,7 @@ class TestEquipmentViewset:
 
         assert response.status_code == status.HTTP_201_CREATED
         assert response.data["client"] == client_obj.id
-        
+
     def test_post_equipment_serial_duplicado_falha(self, api_client, client_obj):
         Equipment.objects.create(
             client=client_obj,
@@ -61,10 +65,10 @@ class TestEquipmentViewset:
             "condition": "Bom estado",
         }
         response = api_client.post("/api/equipments/", payload)
-        
+
         assert response.status_code == status.HTTP_400_BAD_REQUEST
-        
-        
+
+
 @pytest.mark.django_db
 class TestClientEquipmentNestedRoute:
     def test_lista_equipment_apenas_do_cliente_especifico(self, api_client, user):
@@ -99,16 +103,15 @@ class TestClientEquipmentNestedRoute:
             condition="Bom estado",
         )
         response = api_client.get(f"/api/clients/{client_a.id}/equipments/")
-        
+
         assert response.status_code == status.HTTP_200_OK
         assert response.data["count"] == 2
         brands = [item["brand"] for item in response.data["results"]]
         assert "Dell" in brands and "HP" in brands
         assert "Azus" not in brands
-        
+
     def test_rota_aninhada_sem_autenticacao_e_bloqueada(self, client_obj):
         client = APIClient()  # Cliente não autenticado
         response = client.get(f"/api/clients/{client_obj.id}/equipments/")
-        
+
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
-        

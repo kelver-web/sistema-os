@@ -18,22 +18,22 @@ class ClientViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
-    
+
     # Esta action permite obter equipamentos relacionados a um cliente específico.
-    @action(detail=True, methods=['get'], url_path='equipments')
+    @action(detail=True, methods=["get"], url_path="equipments")
     def equipments(self, request, pk=None):
         client = self.get_object()
         equipment_qs = client.equipment.all()
         page = self.paginate_queryset(equipment_qs)
         serializer = EquipmentSerializer(page or equipment_qs, many=True)
-        
+
         if page is not None:
             return self.get_paginated_response(serializer.data)
-        
+
         return Response(serializer.data)
-    
+
     def get_permissions(self):
-        if self.action == 'destroy':
+        if self.action == "destroy":
             return [IsAdmin()]
-        
+
         return [permissions.IsAuthenticated()]
