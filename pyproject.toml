@@ -36,4 +36,4 @@ include = ["accounts*", "clients*", "config*", "equipments*", "parts*", "service
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
-addopts = "--cov=. --cov-report=term-missing --cov-config=.coveragerc"
+addopts = "--cov=. --cov-report=term-missing --cov-report=html --cov-config=.coveragerc"
