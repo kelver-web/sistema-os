@@ -20,6 +20,7 @@ dependencies = [
     "pillow>=12.3.0",
     "psycopg2-binary>=2.9.12",
     "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
     "pytest-django>=4.12.0",
     "python-decouple>=3.8",
     "ruff>=0.15.22",
@@ -35,3 +36,4 @@ include = ["accounts*", "clients*", "config*", "equipments*", "parts*", "service
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "--cov=. --cov-report=term-missing --cov-config=.coveragerc"
