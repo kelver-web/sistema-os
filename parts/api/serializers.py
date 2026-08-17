@@ -28,4 +28,4 @@ class PartMovementSerializer(serializers.ModelSerializer):
             'quantity', 'unit_price', 'notes', 'created_by', 'created_at',
         ]
         read_only_fields = ['created_by', 'created_at']
-        ordering = ['id']
+

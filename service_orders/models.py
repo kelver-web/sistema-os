@@ -91,6 +91,7 @@ class ServiceOrderItem(models.Model):
 
     class Meta:
         verbose_name_plural = "Itens do serviço"
+        ordering = ["id"]
 
     def save(self, *args, **kwargs):
         self.total = self.quantity * self.unit_price
