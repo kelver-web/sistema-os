@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.utils import timezone
 from accounts.permissions import IsAdmin, IsTechOrAdmin
 from service_orders.models import ServiceOrder
-from service_orders.api.serializers import ServiceOrderSerializer
+from service_orders.api.serializers import ServiceOrderSerializer, ServiceOrderItemSerializer
 
 
 class ServiceOrderViewSet(viewsets.ModelViewSet):
@@ -40,3 +40,32 @@ class ServiceOrderViewSet(viewsets.ModelViewSet):
         service_order.completed_at = timezone.now()
         service_order.save()
         return Response(self.get_serializer(service_order).data)
+    
+    @action(detail=True, methods=["post", "get"], url_path="items")
+    def items(self, request, pk=None):
+        service_order = self.get_object()
+        
+        if request.method == "POST":
+            # Regra de negócio 7.1: itens só em OS Pendente ou Em Andamento
+            if service_order.status not in [
+                ServiceOrder.Status.PENDING,
+                ServiceOrder.Status.IN_PROGRESS,
+            ]:
+            
+                return Response(
+                    {"detail": "Itens só podem ser adicionados em OS Pendente ou Em Andamento."},
+                    status=400,
+                )
+            serializer = ServiceOrderItemSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save(service_order=service_order)
+            return Response(serializer.data, status=201)
+        
+        items = service_order.items.all()
+        page = self.paginate_queryset(items)
+        serializer = ServiceOrderItemSerializer(page or items, many=True)
+        
+        if page is not None:
+            return self.get_paginated_response(serializer.data)
+        
+        return Response(serializer.data)

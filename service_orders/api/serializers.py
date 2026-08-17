@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from service_orders.models import ServiceOrder
+from service_orders.models import ServiceOrder, ServiceOrderItem
 
 
 class ServiceOrderSerializer(serializers.ModelSerializer):
@@ -32,3 +32,10 @@ class ServiceOrderSerializer(serializers.ModelSerializer):
             "completed_at",
             "opened_at",
         ]
+
+
+class ServiceOrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceOrderItem
+        fields = ['id', 'service_order', 'description', 'quantity', 'unit_price', 'total']
+        read_only_fields = ['service_order', 'total']
