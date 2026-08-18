@@ -1,7 +1,9 @@
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework import filters as drf_filters
 from django.utils import timezone
+from django_filters.rest_framework import DjangoFilterBackend
 from accounts.permissions import IsAdmin, IsTechOrAdmin
 from service_orders.models import ServiceOrder
 from service_orders.api.serializers import ServiceOrderSerializer, ServiceOrderItemSerializer
@@ -11,6 +13,12 @@ class ServiceOrderViewSet(viewsets.ModelViewSet):
     queryset = ServiceOrder.objects.all()
     serializer_class = ServiceOrderSerializer
     permission_classes = [permissions.IsAuthenticated]
+    # Filtros e Ordenação
+    filter_backends = [DjangoFilterBackend, drf_filters.SearchFilter, drf_filters.OrderingFilter]
+    filerset_fields = ["status", "technician", "client", "priority"]
+    search_fields = ["reported_problem", "technical_fidings", "solution_description"]
+    ordering_fields = ["priority", "opened_at", "deadline"]
+    ordering = ["-priority", "opened_at"]
 
     def get_permissions(self):
         if self.action == "destroy":

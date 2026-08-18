@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "accounts",
     "equipments",
     "service_orders",
+    "dashboard",
     # Apps externas
     "rest_framework",
     "rest_framework_simplejwt",
