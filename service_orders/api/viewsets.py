@@ -15,7 +15,7 @@ class ServiceOrderViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     # Filtros e Ordenação
     filter_backends = [DjangoFilterBackend, drf_filters.SearchFilter, drf_filters.OrderingFilter]
-    filerset_fields = ["status", "technician", "client", "priority"]
+    filterset_fields = ["status", "technician", "client", "priority"]
     search_fields = ["reported_problem", "technical_fidings", "solution_description"]
     ordering_fields = ["priority", "opened_at", "deadline"]
     ordering = ["-priority", "opened_at"]

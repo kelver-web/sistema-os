@@ -24,7 +24,7 @@ def admin_user(db):
     )
     
 @pytest.fixture
-def base_client_obj(admin_user):
+def base_client_obj(admin_user): # Cria um cliente base para ser utilizado nos testes
     return Client.objects.create(
         name="Cliente Base",
         email="cliente_base_esc@teste.com",
@@ -40,7 +40,7 @@ def base_equipment(base_client_obj):
     )
     
 @pytest.fixture
-def tech_client(tech_user):
+def tech_client(tech_user): # Cria um tecnico para ser utilizado nos testes
     api = APIClient()
     api.force_authenticate(user=tech_user)
     return api
@@ -115,4 +115,3 @@ class TestServiceOrderItems:
         })
 
         assert resp.status_code == status.HTTP_201_CREATED
-        
