@@ -12,7 +12,7 @@ class ServiceOrderSerializer(serializers.ModelSerializer):
             "opened_by",
             "technician",
             "reported_problem",
-            "technical_fidings",
+            "technical_findings",
             "solution_description",
             "status",
             "priority",

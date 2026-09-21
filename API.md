@@ -207,7 +207,7 @@ App: `service_orders` — Base: `/api/service-orders/`
 ```json
 {
   "id": 8, "client": 1, "equipment": 5, "opened_by": 4, "technician": null,
-  "reported_problem": "Notebook não liga", "technical_fidings": "",
+  "reported_problem": "Notebook não liga", "technical_findings": "",
   "solution_description": "", "status": "PENDING", "priority": 3,
   "estimated_cost": null, "final_cost": null,
   "opened_at": "2026-08-18T10:00:00-03:00", "started_at": null,
@@ -243,7 +243,7 @@ Qualquer status → CANCELED
 | `?technician=` | igualdade exata (id do usuário) | `?technician=3` |
 | `?client=` | igualdade exata (id do cliente) | `?client=1` |
 | `?priority=` | igualdade exata | `?priority=4` |
-| `?search=` | busca textual em `reported_problem`, `technical_fidings`, `solution_description` | `?search=tela quebrada` |
+| `?search=` | busca textual em `reported_problem`, `technical_findings`, `solution_description` | `?search=tela quebrada` |
 | `?ordering=` | ordenação; prefixo `-` = decrescente | `?ordering=-priority` |
 
 Sem `?ordering=`, o padrão é `-priority, opened_at` (mais urgente primeiro, mais antiga primeiro dentro da mesma prioridade).

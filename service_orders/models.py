@@ -45,7 +45,7 @@ class ServiceOrder(models.Model):
         verbose_name="Técnico",
     )
     reported_problem = models.TextField("Problema relatado")
-    technical_fidings = models.TextField("Problema técnico", blank=True)
+    technical_findings = models.TextField("Problema técnico", blank=True)
     solution_description = models.TextField("Solução", blank=True)
     status = models.CharField(
         max_length=20, choices=Status.choices, default=Status.PENDING
