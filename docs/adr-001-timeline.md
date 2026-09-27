@@ -93,7 +93,7 @@ muda nada. Estado e auditoria rejeitados juntos.
 | Alternativa | Por que não |
 |---|---|
 | `post_save` no model | Garantia falsa (não cobre `update()`), esconde escrita, perde intenção |
-| Service Layer completo com DI | Exagero agora. O service é um módulo de funções; DI entra na Semana 15 se a复杂度 justificar |
+| Service Layer completo com DI | Exagero agora. O service é um módulo de funções; DI entra na Semana 15 se a complexidade justificar |
 | Event sourcing (OS é uma sequência de eventos) | Modelo mental mais puro, mas reescreve o app inteiro. Fora de escopo |
 | Deixar a timeline pra cada action escrever | Repete `ServiceTimeLine.objects.create` em 7 lugares. Divergem no primeiro esquecimento |
 
