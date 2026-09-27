@@ -1,0 +1,27 @@
+target-version = "py313"
+line-length = 88
+
+# Migrations são registros históricos: reformatá-las só gera ruído no git diff,
+# a cada `ruff format`, sem mudar o schema. Excluídas de toda verificação.
+extend-exclude = ["*/migrations/*"]
+
+[lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific rules
+]
+ignore = [
+    "E501",  # line length: tratado pelo formatador
+    "RUF012", # mutable class attr: é o padrão idiomático de Meta no Django
+    "RUF005", # concatenação de tupla/lista é legível e intencional aqui
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

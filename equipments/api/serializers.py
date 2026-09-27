@@ -5,6 +5,7 @@ from equipments.models import Equipment
 
 class ClientMinimalSerializer(serializers.Serializer):
     """Representação exuta do cliente, só para exibição aninhada de equipamentos."""
+
     id = serializers.IntegerField()
     name = serializers.CharField()
 

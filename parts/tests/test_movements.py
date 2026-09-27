@@ -10,23 +10,30 @@ User = get_user_model()
 @pytest.fixture
 def tech_user(db):
     return User.objects.create_user(
-        username="tech_mov", email="tech_mov@teste.com",
-        password="senha123", role=User.Role.TECH,
+        username="tech_mov",
+        email="tech_mov@teste.com",
+        password="senha123",
+        role=User.Role.TECH,
     )
 
 
 @pytest.fixture
 def attendant_user(db):
     return User.objects.create_user(
-        username="attendant_mov", email="attendant_mov@teste.com",
-        password="senha123", role=User.Role.ATTENDANT,
+        username="attendant_mov",
+        email="attendant_mov@teste.com",
+        password="senha123",
+        role=User.Role.ATTENDANT,
     )
 
 
 @pytest.fixture
 def base_part(db):
     return Part.objects.create(
-        name="Fonte ATX Teste", supplier_price="50.00", sale_price="80.00", quantity=10,
+        name="Fonte ATX Teste",
+        supplier_price="50.00",
+        sale_price="80.00",
+        quantity=10,
     )
 
 
@@ -46,41 +53,60 @@ def attendant_client(attendant_user):
 
 @pytest.mark.django_db
 class TestPartMovements:
-
     def test_tech_cria_movimento_com_sucesso(self, tech_client, tech_user, base_part):
-        resp = tech_client.post("/api/parts/movements/", {
-            "part": base_part.id, "movement_type": "used",
-            "quantity": 1, "unit_price": "80.00",
-        })
+        resp = tech_client.post(
+            "/api/parts/movements/",
+            {
+                "part": base_part.id,
+                "movement_type": "used",
+                "quantity": 1,
+                "unit_price": "80.00",
+            },
+        )
 
         assert resp.status_code == status.HTTP_201_CREATED
         assert resp.data["created_by"] == tech_user.id
 
     def test_attendant_nao_pode_criar_movimento(self, attendant_client, base_part):
-        resp = attendant_client.post("/api/parts/movements/", {
-            "part": base_part.id, "movement_type": "used",
-            "quantity": 1, "unit_price": "80.00",
-        })
+        resp = attendant_client.post(
+            "/api/parts/movements/",
+            {
+                "part": base_part.id,
+                "movement_type": "used",
+                "quantity": 1,
+                "unit_price": "80.00",
+            },
+        )
 
         assert resp.status_code == status.HTTP_403_FORBIDDEN
 
     def test_created_by_nao_pode_ser_forjado(self, tech_client, tech_user, base_part):
         outro_user = User.objects.create_user(
-            username="outro_mov", password="senha123", role=User.Role.TECH,
+            username="outro_mov",
+            password="senha123",
+            role=User.Role.TECH,
         )
-        resp = tech_client.post("/api/parts/movements/", {
-            "part": base_part.id, "movement_type": "used",
-            "quantity": 1, "unit_price": "80.00",
-            "created_by": outro_user.id,  # tentativa de forjar
-        })
+        resp = tech_client.post(
+            "/api/parts/movements/",
+            {
+                "part": base_part.id,
+                "movement_type": "used",
+                "quantity": 1,
+                "unit_price": "80.00",
+                "created_by": outro_user.id,  # tentativa de forjar
+            },
+        )
 
         assert resp.status_code == status.HTTP_201_CREATED
         assert resp.data["created_by"] == tech_user.id
 
     def test_listar_movimentos(self, tech_client, tech_user, base_part):
         PartMovement.objects.create(
-            part=base_part, movement_type="in", quantity=5,
-            unit_price=50, created_by=tech_user,
+            part=base_part,
+            movement_type="in",
+            quantity=5,
+            unit_price=50,
+            created_by=tech_user,
         )
 
         resp = tech_client.get("/api/parts/movements/")

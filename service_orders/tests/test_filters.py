@@ -12,40 +12,53 @@ User = get_user_model()
 @pytest.fixture
 def admin_user(db):
     return User.objects.create_user(
-        username="admin_filtros", email="admin_filtros@teste.com",
-        password="senha123", role=User.Role.ADMIN, is_staff=True,
+        username="admin_filtros",
+        email="admin_filtros@teste.com",
+        password="senha123",
+        role=User.Role.ADMIN,
+        is_staff=True,
     )
 
 
 @pytest.fixture
 def tech_user(db):
     return User.objects.create_user(
-        username="tech_filtros", email="tech_filtros@teste.com",
-        password="senha123", role=User.Role.TECH,
+        username="tech_filtros",
+        email="tech_filtros@teste.com",
+        password="senha123",
+        role=User.Role.TECH,
     )
 
 
 @pytest.fixture
 def attendant_user(db):
     return User.objects.create_user(
-        username="attendant_filtros", email="attendant_filtros@teste.com",
-        password="senha123", role=User.Role.ATTENDANT,
+        username="attendant_filtros",
+        email="attendant_filtros@teste.com",
+        password="senha123",
+        role=User.Role.ATTENDANT,
     )
 
 
 @pytest.fixture
 def base_client_obj(admin_user):
     return Client.objects.create(
-        name="Cliente Filtros", email="cliente_filtros@teste.com",
-        phone="84999990000", created_by=admin_user,
+        name="Cliente Filtros",
+        email="cliente_filtros@teste.com",
+        phone="84999990000",
+        created_by=admin_user,
     )
 
 
 @pytest.fixture
 def base_equipment(base_client_obj):
     return Equipment.objects.create(
-        client=base_client_obj, category="informatica",
-        brand="Dell", model="X", condition="ok", serial_number="FLT-001",
+        client=base_client_obj,
+        category="informatica",
+        brand="Dell",
+        model="X",
+        condition="ok",
+        serial_number="FLT-001",
     )
 
 
@@ -59,12 +72,18 @@ def tech_client(tech_user):
 @pytest.fixture
 def duas_os(attendant_user, tech_user, base_client_obj, base_equipment):
     os1 = ServiceOrder.objects.create(
-        client=base_client_obj, equipment=base_equipment, opened_by=attendant_user,
-        reported_problem="Tela quebrada", priority=ServiceOrder.Priority.URGENT,
+        client=base_client_obj,
+        equipment=base_equipment,
+        opened_by=attendant_user,
+        reported_problem="Tela quebrada",
+        priority=ServiceOrder.Priority.URGENT,
     )
     os2 = ServiceOrder.objects.create(
-        client=base_client_obj, equipment=base_equipment, opened_by=attendant_user,
-        reported_problem="Não liga de jeito nenhum", priority=ServiceOrder.Priority.LOW,
+        client=base_client_obj,
+        equipment=base_equipment,
+        opened_by=attendant_user,
+        reported_problem="Não liga de jeito nenhum",
+        priority=ServiceOrder.Priority.LOW,
         technician=tech_user,
     )
     return os1, os2
@@ -72,7 +91,6 @@ def duas_os(attendant_user, tech_user, base_client_obj, base_equipment):
 
 @pytest.mark.django_db
 class TestServiceOrderFiltros:
-
     def test_filtro_por_status(self, tech_client, duas_os):
         resp = tech_client.get("/api/service-orders/?status=PENDING")
         assert resp.status_code == status.HTTP_200_OK

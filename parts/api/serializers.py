@@ -24,8 +24,14 @@ class PartMovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = PartMovement
         fields = [
-            'id', 'part', 'service_order', 'movement_type',
-            'quantity', 'unit_price', 'notes', 'created_by', 'created_at',
+            "id",
+            "part",
+            "service_order",
+            "movement_type",
+            "quantity",
+            "unit_price",
+            "notes",
+            "created_by",
+            "created_at",
         ]
-        read_only_fields = ['created_by', 'created_at']
-
+        read_only_fields = ["created_by", "created_at"]

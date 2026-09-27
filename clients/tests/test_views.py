@@ -47,8 +47,12 @@ class TestClientViewset:
         assert response.data["created_by"] == user.id
 
     def test_get_lista_clients(self, api_client, user):
-        Client.objects.create(name="A", email="a@x", phone="84996969658", created_by=user)
-        Client.objects.create(name="C", email="c@x", phone="84996969659", created_by=user)
+        Client.objects.create(
+            name="A", email="a@x", phone="84996969658", created_by=user
+        )
+        Client.objects.create(
+            name="C", email="c@x", phone="84996969659", created_by=user
+        )
 
         response = api_client.get("/api/clients/")
 
@@ -58,7 +62,10 @@ class TestClientViewset:
 
     def test_delete_remove_client(self, user):
         admin = User.objects.create_user(
-            username="admin_del", password="testpass", role=User.Role.ADMIN, is_staff=True
+            username="admin_del",
+            password="testpass",
+            role=User.Role.ADMIN,
+            is_staff=True,
         )
         admin_client = APIClient()
         admin_client.force_authenticate(user=admin)
