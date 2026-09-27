@@ -12,7 +12,7 @@ transição ausente da matriz é PROIBIDA. O padrão é negar, não permitir.
 from typing import Final
 
 # Papéis como strings literais, de propósito: manter este módulo livre de
-# qualquer import do Django. test_transitions.pyvalida que estes literals
+# qualquer import do Django. test_transitions.py valida que estes literals
 # continuam em sincronia com accounts.models.User.Role.
 ADMIN: Final = "admin"
 TECH: Final = "tech"
@@ -28,7 +28,7 @@ ALL_ROLES: Final = frozenset({ADMIN, TECH, ATTENDANT})
 # AWAITING_APPROVAL .... serviço pronto, cliente não aprovou o valor
 # COMPLETED ............ aprovado e finalizado
 # DELIVERED ............ equipamento saiu da loja (terminal)
-# CANCELED ............ desistência (terminal)
+# CANCELED ............. desistência (terminal)
 TRANSITIONS: Final[dict[str, dict[str, frozenset[str]]]] = {
     "PENDING": {
         # Peça necessária já identificada na recepção, sem precisar assumir.
